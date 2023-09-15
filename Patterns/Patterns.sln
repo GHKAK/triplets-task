@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripletsApp", "TripletsApp\TripletsApp.csproj", "{94DF4AF4-D42F-42B3-9CDF-35C206D46DC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatternsApp", "PatternsApp\PatternsApp.csproj", "{94DF4AF4-D42F-42B3-9CDF-35C206D46DC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

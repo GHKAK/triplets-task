@@ -1,14 +1,14 @@
 ﻿using System.Text;
 using System.Xml.Serialization;
 
-namespace Triplets; 
+namespace Patterns; 
 
 public class TextGenerator {
     private Random _random = new Random();
 
     private string[] _words = {
         "I'm", "skill", "plus", "minus", "man", "algorithm", "computer", "character", "general", "form", "performing",
-        "woman", "our", "logarithm", "aaabbbb", "bbbaa", "cccaabbaacc"
+        "woman", "our", "logarithm", "", "", ""
     };
     string[] _punctuation = { ".", ",", "!", "?", ";", ":","\n", "\t" };
 
