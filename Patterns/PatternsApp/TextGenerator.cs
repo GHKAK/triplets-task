@@ -8,9 +8,9 @@ public class TextGenerator {
 
     private string[] _words = {
         "I'm", "skill", "plus", "minus", "man", "algorithm", "computer", "character", "general", "form", "performing",
-        "woman", "our", "logarithm", "", "", ""
+        "woman", "our", "logarithm", "CCCCB", "CCCC", "aaaaa","AAAAAAA"
     };
-    string[] _punctuation = { ".", ",", "!", "?", ";", ":","\n", "\t" };
+    string[] _punctuation = { ".", ",", "!", "?", ";", ":","\n", "\t", "", "","" };
 
     public void GenerateRandomText(string filePath, int wordsCount=1000000) {
         using (StreamWriter writer = new StreamWriter(filePath)) {

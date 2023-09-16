@@ -11,14 +11,13 @@ public class LatinPatternsCounter : PatternsCounter<byte> {
 
     public override async Task<Dictionary<string, int>> GetTopPatterns() {
         int bytesRead;
-        using (FileStream fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.None, chunkSize)) {
+        List<byte> gapsSkipped = new();
+        using (FileStream fs = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.None, chunkSize)) {
             while ((bytesRead = await fs.ReadAsync(_buffer)) > 0) {
-                var tasks = StartTasks(bytesRead);
+                var tasks = StartTasks(gapsSkipped, bytesRead);
                 await Task.WhenAll(tasks);
             }
         }
-
-
         return TopPatterns();
     }
     
@@ -37,7 +36,7 @@ public class LatinPatternsCounter : PatternsCounter<byte> {
     private protected override ReadOnlySpan<byte> GetTextDataSlice(int startIndex, int endIndex) {
         return _buffer.Span.Slice(startIndex, endIndex - startIndex);
     }
-    private protected override string SpanToString(ReadOnlySpan<byte> span) {
+    public override string SpanToString(ReadOnlySpan<byte> span) {
         return Encoding.UTF8.GetString(span);
     }
 }

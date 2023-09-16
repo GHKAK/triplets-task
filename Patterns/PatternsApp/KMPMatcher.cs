@@ -10,32 +10,29 @@ public abstract class KMPMatcher<T> {
 
         int matches = 0;
         int[] prefix = CalcPrefix(pattern);
-        while (t < n) {
+        while ((n - t) >= (m - p)) {
             if (AreLettersEquals(pattern[p], text[t])) {
                 p++;
                 t++;
-
-                if (p == m) {
-                    matches++;
-                    p = prefix[p];
-                }
-            } else {
-                p = prefix[p];
-                if (p < 0) {
-                    p++;
-                    t++;
-                }
+            } 
+            else if (t < n) {
+                if (p != 0)
+                    p = prefix[p - 1];
+                else
+                    t += 1;
+            }
+            if (p == m) {
+                matches++;
+                p = prefix[p - 1];
             }
         }
-
         return matches;
     }
 
-    private   int[] CalcPrefix(ReadOnlySpan<T> pattern) {
+    private  int[] CalcPrefix(ReadOnlySpan<T> pattern) {
         int M = pattern.Length;
-        int[] prefix = new int[M+1];
-        prefix[0] = -1;
-        prefix[1] = 0;
+        int[] prefix = new int[M];
+        prefix[0] = 0;
 
         int len = 0;
         int i = 1;
@@ -47,17 +44,16 @@ public abstract class KMPMatcher<T> {
             }
             else 
             {
-                if (len > 0) {
-                    len = prefix[len];
+                if (len != 0) {
+                    len = prefix[len - 1];
                 }
-                else
+                else 
                 {
-                    i++;
                     prefix[i] = len;
+                    i++;
                 }
             }
         }
-
         return prefix;
     }
      private protected  abstract bool AreLettersEquals(T byte1, T byte2);
