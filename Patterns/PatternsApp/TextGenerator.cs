@@ -12,7 +12,7 @@ public class TextGenerator {
     };
     string[] _punctuation = { ".", ",", "!", "?", ";", ":","\n", "\t" };
 
-    public void GenerateRandomText(string filePath, int wordsCount) {
+    public void GenerateRandomText(string filePath, int wordsCount=1000000) {
         using (StreamWriter writer = new StreamWriter(filePath)) {
             for (int i = 0; i < wordsCount; i++) {
                 writer.Write(_words[_random.Next(_words.Length)]);

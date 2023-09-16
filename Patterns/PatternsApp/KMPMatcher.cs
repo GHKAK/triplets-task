@@ -1,7 +1,7 @@
 ﻿namespace Patterns; 
 
-public static class KMPMatcher {
-    public static int KMPSearch(ReadOnlySpan<byte> text, ReadOnlySpan<byte> pattern) {
+public abstract class KMPMatcher<T> {
+    public int KMPSearch(ReadOnlySpan<T> text, ReadOnlySpan<T> pattern) {
         int t = 0; // position of character in text
         int p = 0; // position of character in pattern
 
@@ -11,7 +11,7 @@ public static class KMPMatcher {
         int matches = 0;
         int[] prefix = CalcPrefix(pattern);
         while (t < n) {
-            if (AreLettersInBytesEquals(pattern[p], text[t])) {
+            if (AreLettersEquals(pattern[p], text[t])) {
                 p++;
                 t++;
 
@@ -31,7 +31,7 @@ public static class KMPMatcher {
         return matches;
     }
 
-    private static int[] CalcPrefix(ReadOnlySpan<byte> pattern) {
+    private   int[] CalcPrefix(ReadOnlySpan<T> pattern) {
         int M = pattern.Length;
         int[] prefix = new int[M+1];
         prefix[0] = -1;
@@ -40,7 +40,7 @@ public static class KMPMatcher {
         int len = 0;
         int i = 1;
         while (i < M) {
-            if (AreLettersInBytesEquals(pattern[i] , pattern[len])) {
+            if (AreLettersEquals(pattern[i] , pattern[len])) {
                 len++;
                 prefix[i] = len;
                 i++;
@@ -60,17 +60,5 @@ public static class KMPMatcher {
 
         return prefix;
     }
-    
-    //Case-insensitive comparison of bytes that actually latin alphabet letter in ASCII code
-    private static bool AreLettersInBytesEquals(byte byte1, byte byte2) {
-        if (byte1 == byte2) {
-            return true;
-        }
-
-        if ((byte1 >= 65 && byte2 == byte1 + 32) || (byte1 >= 97 && byte2 == byte1 - 32)) {
-            return true;
-        }
-
-        return false;
-    }
+     private protected  abstract bool AreLettersEquals(T byte1, T byte2);
 }

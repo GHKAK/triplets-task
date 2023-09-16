@@ -10,8 +10,14 @@ if (!File.Exists(filePath)) {
 
 Stopwatch sw = new();
 sw.Start();
-var result = await new PatternsCounter(filePath,4,10).GetTopPatterns();
+var result = await new LatinPatternsCounter(filePath,3,10).GetTopPatterns();
 foreach (var pair in result) {
+    Console.WriteLine($"{pair.Key}  --- {pair.Value} times");
+}
+Console.WriteLine($"Elapsed time {sw.ElapsedMilliseconds} ms");
+sw.Restart();
+var result2 = await new InvariantCulturePatternsCounter(filePath,3,10).GetTopPatterns();
+foreach (var pair in result2) {
     Console.WriteLine($"{pair.Key}  --- {pair.Value} times");
 }
 Console.WriteLine($"Elapsed time {sw.ElapsedMilliseconds} ms");
